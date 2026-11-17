@@ -1,0 +1,49 @@
+services:
+  mongodb:
+    image: mongo:8.0.8-noble
+    container_name: mongodb-cloud
+    ports:
+     - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - campuscloud-nwt
+
+  neo4j:
+    image: neo4j:5-community
+    container_name: neo4j-cloud
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: ${NEO4J_AUTH}
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - campuscloud-nwt
+
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra-cloud
+    ports:
+      - "9042:9042"
+    environment:
+      CASSANDRA_CLUSTER_NAME: ${CASSANDRA_CLUSTER}
+      MAX_HEAP_SIZE: 1G
+      HEAP_NEWSIZE: 256M
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    networks:
+      - campuscloud-nwt
+
+volumes:
+  mongo_data:
+  neo4j_data:
+  cassandra_data:
+
+networks:
+  campuscloud-nwt:
+    external: true
