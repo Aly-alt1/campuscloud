@@ -3,7 +3,8 @@ import express from "express";
 
 //importar el router de salud
 import saludRouter from './routes/salud.routes.js';
-
+import catalogoRouter from './routes/catalogo.rutes.js';
+import {manejarErrores} from "./middlewares/error.middleware.js"
 
 //crea una aplicacion express, a partir de este objeto
 // se podran configurar rutas y middlewares
@@ -15,5 +16,10 @@ app.use(express.json());
 
 //usar el router de salud
 app.use(saludRouter);
+app.use(catalogoRouter);
+
+//registrar al final del middleware de errores
+app.use(manejarErrores)
+
 
 export default app;
