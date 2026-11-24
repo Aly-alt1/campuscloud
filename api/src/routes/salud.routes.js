@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { obtenerSalud } from '../../controllers/salud.contollers.js';
+import { obtenerSalud } from '../controllers/salud.contollers.js';
 
 //crear un objeto router
 
